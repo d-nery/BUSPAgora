@@ -58,7 +58,7 @@ function onMessageArrived(message) {
         if (tipo2 === 0)
             $('#avg-time').text(Math.floor(Number(message.payloadString)) + " min")
         else
-           $('#disp-sessao').text(message.payloadString)
+           $('#disp-sessao').text(thenum)
     }
 };
 
