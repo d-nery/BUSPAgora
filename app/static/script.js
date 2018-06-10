@@ -50,15 +50,17 @@ function onMessageArrived(message) {
 
                 console.log('is a propper number, will send to chart.')
             plot(charts[index], data);	//send it to the plot function
-            if (index === 6)
+            if (index === 6) {
                 plot(charthack, data);	//send it to the plot function
+		$('#disp-sessao').text(message.payloadString.replace( /^\D+/g, ''));
+	    }
         }
     } else {
         var tipo2 = Number(message.destinationName.split('/')[4]);
         if (tipo2 === 0)
             $('#avg-time').text(Math.floor(Number(message.payloadString)) + " min")
-        else
-           $('#disp-sessao').text(thenum)
+        //else
+          // $('#disp-sessao').text(message.payloadString.replace( /^\D+/g, ''));
     }
 };
 
