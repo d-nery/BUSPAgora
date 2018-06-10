@@ -1,3 +1,5 @@
+var bus_marker;
+
 function initMap() {
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -102,7 +104,7 @@ function initMap() {
         markers[i].last_lot = window.points_last_lotacao[i];
         markers[i].last_circ = new Date(window.points_last_circular_time[i]);
         markers[i].index = i;
-        today = new Date()
+        today = new Date();
 
         window.markers[i].addListener('click', function() {
             if (infowindow) {
@@ -115,7 +117,7 @@ function initMap() {
                     '</div>'+
                     '<h1 id="firstHeading" class="firstHeading">'+this.point_name+'</h1>'+
                     '<div id="bodyContent">'+
-                    '<p><b>Lota&cedil;&atilde;o</b></p>'+
+                    '<p><b>Lotacão</b></p>'+
                     '<progress value="'+this.last_lot+'" max="50"></progress>'+
                     '<p><b>Ultimo circular: há '+ Math.round((((today - this.last_circ) % 86400000) % 3600000) / 60000) +' minutos</b><br>'+
                     '<b>Lotação Média</b></p>'+
@@ -127,19 +129,21 @@ function initMap() {
         });
 
         if (window.points_last_lotacao[i] < 10)
-            window.markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            window.markers[i].setIcon('https://i.imgur.com/quLjEU7.png');
         else if (window.points_last_lotacao[i] < 20)
-            window.markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
+            window.markers[i].setIcon('https://i.imgur.com/sISBN5Q.png');
         else
-            window.markers[i].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+            window.markers[i].setIcon('https://i.imgur.com/SLVHkJk.png');
     }
 
-    var bus_marker = new google.maps.Marker({
+    bus_marker = new google.maps.Marker({
         position: centro,
         map: map,
         animation: google.maps.Animation.DROP,
-        icon: 'https://i.imgur.com/b1dN5ox.png'
+        icon: 'https://i.imgur.com/MIEL89z.png'
     });
+
+    // get_coord();
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -172,5 +176,22 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
             window.alert('Directions request failed due to ' + status);
         }
     });
+}
 
+function get_coord() {
+    $.ajax({
+        url: 'http://beta.thunderatz.org/coord',
+        dataType: 'json',
+
+        success: function(data, status) {
+            console.log(data);
+            bus_marker.setPosition(JSON.parse(data.responseData));
+        },
+
+        error: function(xhr, textStatus, err) {
+            console.log('Nope');
+        }
+    });
+
+    setTimeout(get_coord, 10000);
 }

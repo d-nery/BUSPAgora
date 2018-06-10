@@ -35,5 +35,6 @@ def index(request):
         'lotacao': json.dumps(lotacao),
         'points_last_circular_lotacao': json.dumps(points_last_circular_lotacao),
         'points_last_circular_time': json.dumps(points_last_circular_time),
-        'points': Ponto.objects.all()
+        'points': Ponto.objects.all(),
+        'hackaponto': Ponto.objects.get(pk=8)
     })

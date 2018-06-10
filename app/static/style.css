@@ -23,6 +23,11 @@
     transform: translate3d(0, -50%, 0);
 }
 
+.info-ponto {
+    background-color: white;
+    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21);
+}
+
 .section {
     width: 100vw !important;
 
@@ -30,6 +35,7 @@
     left: 0;
     top: 0;
     z-index: 5;
+    margin-bottom: 2rem;
 }
 
 .section2 {
@@ -53,3 +59,26 @@
     top: 0;
     z-index: 0;
 }
+
+.info-ponto-2 {
+    height: calc(100% - 6rem);
+}
+
+.seperator {
+    height: 100%;
+    width: 1px;
+    background: grey;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+  }
+
+  p.thicker {
+      font-weight: 900;
+  }
+
+  .col-centered{
+      float: none;
+      margin: 0 auto;
+  }
